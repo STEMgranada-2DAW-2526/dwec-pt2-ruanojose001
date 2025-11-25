@@ -30,20 +30,19 @@ export default function App() {
         damageDealt: state.damageDealt + state.damagePerShot
       }
     }
-    else if (action.type == 'AUTO_SHOOT' && state.damageDealt >= state.multiplierPrice) {
+    else if (action.type == 'AUTO_SHOOT') {
       outputState =
       {
         ...state,
         damageDealt: state.damageDealt + state.damagePerShot * state.autoShotsPerSecond
       }
     }
-    else if (action.type == 'BUY_CURSOR' && state.cookies >= state.cursorPrice) {
+    else if (action.type == 'BUY_MULTIPLIER' && state.caramels >= 10) {
       outputState =
       {
         ...state,
-        cursorCount: state.cursorCount + 1,
-        cookies: state.cookies - state.cursorPrice,
-        cursorPrice: Math.round(state.cursorPrice * state.cursorPriceIncrement)
+          caramels: state.caramels-10,
+          autoshotPerSecond: state.autoShotsPerSecond + 1
       }
     }
     else if (action.type == 'BUY_GRANDMA' && state.cookies >= state.grandmaPrice) {
