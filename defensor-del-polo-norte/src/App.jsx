@@ -1,14 +1,17 @@
-import { useEffect, useReducer } from 'react'      
-import './App.css'                                
-import arbol_laserImg from "./assets/arbol_laser.png  ";     
-import canion_turronImg from "./assets/canion_turron.png";       
-import caramelo_sangrientoImg from "./assets/caramelo_sangriento.png";      
+import { useEffect, useReducer } from 'react'
+import './App.css'
+import arbol_laserImg from "./assets/arbol_laser.png  ";
+import canion_turronImg from "./assets/canion_turron.png";
+import caramelo_sangrientoImg from "./assets/caramelo_sangriento.png";
 import multiplicadorImg from "./assets/multiplicador.png";
-import reno_lanza_cohetesrImg from "./assets/reno_lanza_cohetes.png";   
-import torreImg from "./assets/torre.png";   
+import reno_lanza_cohetesrImg from "./assets/reno_lanza_cohetes.png";
+import torreImg from "./assets/torre.png";
 
 function App() {
 
+  const INITIAL_STATE = {
+damageDealt: 0
+  }
 
   return (
     <>
