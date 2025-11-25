@@ -24,9 +24,9 @@ import torreImg from "./assets/torre.png";
       let outputState = state;
 
       if (action.type == 'CLICK_SHOOT') {
-        outputState = { ...state, damageDealt: state.damageDealt+ state.clickMultiplier }
+        outputState = { ...state, damageDealt: state.damageDealt + state.damagePerShot }
       }
-      else if (action.type == 'BUY_MULTIPLIER' && state.cookies >= state.multiplierPrice) {
+      else if (action.type == 'AUTO_SHOOT' && state.damageDealt >= state.multiplierPrice) {
         outputState =
         {
           ...state,
