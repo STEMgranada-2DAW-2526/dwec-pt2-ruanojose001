@@ -1,7 +1,9 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useReducer } from 'react'      
+import './App.css'                                
+import cookieImg from "./assets/galleta.png";      
+import cursorImg from "./assets/cursor.png";       
+import grandmaImg from "./assets/abuela.png";      
+import multiplierImg from "./assets/corre.png";    
 
 function App() {
   const [count, setCount] = useState(0)
