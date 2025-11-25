@@ -37,7 +37,7 @@ export default function App() {
         damageDealt: state.damageDealt + state.damagePerShot * state.autoShotsPerSecond
       }
     }
-    else if (action.type == 'BUY_DAMAGE_UPGRADE' && state.caramels >= caramels) {
+    else if (action.type == 'CANION_TURRON' && state.caramels >= caramels) {
       outputState =
       {
         ...state,
@@ -45,7 +45,23 @@ export default function App() {
         autoshotPerSecond: state.autoShotsPerSecond + 2
       }
     }
-    else if (action.type == 'NEXT WAVE') {
+        else if (action.type == 'RENOS' && state.caramels >= caramels) {
+      outputState =
+      {
+        ...state,
+        caramels: state.caramels - 30,
+        autoshotPerSecond: state.autoShotsPerSecond + 5
+      }
+    }
+        else if (action.type == 'ARBOL' && state.caramels >= caramels) {
+      outputState =
+      {
+        ...state,
+        caramels: state.caramels - 50,
+        autoshotPerSecond: state.autoShotsPerSecond + 10
+      }
+    }
+    else if (action.type == 'NEXT_WAVE') {
       outputState =
       {
         ...state,
@@ -83,21 +99,21 @@ export default function App() {
 
       <div>
         <h3>
-          <button onClick={() => dispatch({ type: 'BUY_DAMAGE_UPGRADE'})}>
+          <button onClick={() => dispatch({ type: 'CANION_TURRON'})}>
             <img className='imagen' src={torreImg} />
           </button>
 
-          <button onClick={() => dispatch({ type: 'BUY_DAMAGE_UPGRADE'})}>
+          <button onClick={() => dispatch({ type: 'RENOS'})}>
             <img className='imagen' src={reno_lanza_cohetesrImg} />
           </button>
 
-          <button onClick={() => dispatch({ type: 'BUY_DAMAGE_UPGRADE'})}>
+          <button onClick={() => dispatch({ type: 'ARBOL'})}>
             <img className='imagen' src={arbol_laserImg} />
           </button>
         </h3>
 
         <h4>
-          <button onClick={() => dispatch({ type: 'NEXT WAVE' })}>
+          <button onClick={() => dispatch({ type: 'NEXT_WAVE' })}>
             Nueva oleada
           </button>
         </h4>
