@@ -13,7 +13,6 @@ import torreImg from "./assets/torre.png";
     caramels: 20,
     damagePerShot: 1,
     autoShotsPerSecond: 1,
-    autoshotsPerSecond: 1,
     upgrades: [],
   }
 
@@ -25,7 +24,7 @@ import torreImg from "./assets/torre.png";
       let outputState = state;
 
       if (action.type == 'CLICK_SHOOT') {
-        outputState = { ...state, cookies: state.cookies + state.clickMultiplier }
+        outputState = { ...state, damageDealt: state.damageDealt+ state.clickMultiplier }
       }
       else if (action.type == 'BUY_MULTIPLIER' && state.cookies >= state.multiplierPrice) {
         outputState =
