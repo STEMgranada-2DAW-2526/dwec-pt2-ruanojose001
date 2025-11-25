@@ -77,26 +77,31 @@ export default function App() {
         </h1>
 
         <button onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
-          <img className='imagen' src={canion_turronImg} />
+          <img className='imagenGrande' src={canion_turronImg} />
         </button>
       </div>
 
-      <div className='imagen'>
+      <div>
         <h3>
-        <button onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
-          <img src={torreImg} />
-        </button>
+          <button onClick={() => dispatch({ type: 'BUY_DAMAGE_UPGRADE' })}>
+            <img className='imagen' src={torreImg} />
+          </button>
 
-        <button onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
-          <img src={reno_lanza_cohetesrImg} />
-        </button>
+          <button onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
+            <img className='imagen' src={reno_lanza_cohetesrImg} />
+          </button>
 
-        <button onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
-          <img src={arbol_laserImg} />
-        </button>
+          <button onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
+            <img className='imagen' src={arbol_laserImg} />
+          </button>
         </h3>
 
-      </div>
+        <h4>
+          <button onClick={() => dispatch({ type: 'NEXT WAVE' })}>
+            Nueva oleada
+          </button>
+        </h4>
+      </div >
     </>
   )
 }
