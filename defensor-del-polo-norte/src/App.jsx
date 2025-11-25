@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from 'react'
 import './App.css'
-import arbol_laserImg from "./assets/arbol_laser.png  ";
+import arbol_laserImg from "./assets/arbol_laser.png";
 import canion_turronImg from "./assets/canion_turron.png";
 import caramelo_sangrientoImg from "./assets/caramelo_sangriento.png";
 import multiplicadorImg from "./assets/multiplicador.png";
@@ -37,28 +37,21 @@ export default function App() {
         damageDealt: state.damageDealt + state.damagePerShot * state.autoShotsPerSecond
       }
     }
-    else if (action.type == 'BUY_MULTIPLIER' && state.caramels >= 10) {
+    else if (action.type == 'BUY_DAMAGE_UPGRADE') {
       outputState =
       {
         ...state,
-          caramels: state.caramels-10,
-          autoshotPerSecond: state.autoShotsPerSecond + 1
+        caramels: state.caramels - 15,
+        autoshotPerSecond: state.autoShotsPerSecond + 1
       }
     }
-    else if (action.type == 'BUY_GRANDMA' && state.cookies >= state.grandmaPrice) {
+    else if (action.type == 'NEXT WAVE') {
       outputState =
       {
         ...state,
-        grandmaCount: state.grandmaCount + 1,
-        cookies: state.cookies - state.grandmaPrice,
-        grandmaPrice: Math.round(state.grandmaPrice * state.grandmaPriceIncrement)
-      }
-    }
-    else if (action.type == 'GENERATE_COOKIES') {
-      outputState =
-      {
-        ...state,
-        cookies: state.cookies + state.cursorCount * 0.1 + state.grandmaCount * 1
+        caramels: state.caramels + 10,
+        damageDealt: 0,
+        waveGoal: Math.round(waveGoal * 1.1)
       }
     }
 
@@ -66,11 +59,11 @@ export default function App() {
 
   }
 
-  const [state, dispatch] = useReducer(cookieReducer, INITIAL_STATE)
+  const [state, dispatch] = useReducer(shotReducer, INITIAL_STATE)
 
   useEffect(() => {
     let timer = setInterval(() => {
-      dispatch({ type: 'GENERATE_COOKIES' })
+      dispatch({ type: 'AUTO_SHOOT' })
     }, 1000);
 
     return () => clearInterval(timer)
@@ -78,32 +71,13 @@ export default function App() {
 
   return (
     <>
-      <div className='container'>
-        <div className='row justify-content-center'>
-          <h1 className='col-12'>{Math.round(state.cookies)} 🍪</h1>
-          <button className='col-5' onClick={() => dispatch({ type: 'CLICK_COOKIE' })}>
-            <img className='img-fluid' src={cookieImg} />
-          </button>
-        </div>
-        <div className='row justify-content-center'>
-          <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_CURSOR' })}>
-            <img className='img-fluid' src={cursorImg} />
-            x{state.cursorCount}
-          </button>
-          <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_MULTIPLIER' })}>
-            <img className='img-fluid' src={multiplierImg} />
-            x{state.clickMultiplier}
-          </button>
-          <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_GRANDMA' })}>
-            <img className='img-fluid' src={grandmaImg} />
-            x{state.grandmaCount}
-          </button>
-        </div>
-        <div className='row justify-content-center'>
-          <p className='col-md-2 col-12'>{state.cursorPrice} 🍪</p>
-          <p className='col-md-2 col-12'>{state.multiplierPrice} 🍪</p>
-          <p className='col-md-2 col-12'>{state.grandmaPrice} 🍪</p>
-        </div>
+      <div>
+        <h1>
+          Daño {state.damageDealt} Caramelos {state.caramels} Oleada {state.waveGoal}
+        </h1>
+
+        <button onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
+        </button>
       </div>
 
     </>
