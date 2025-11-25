@@ -7,36 +7,105 @@ import multiplicadorImg from "./assets/multiplicador.png";
 import reno_lanza_cohetesrImg from "./assets/reno_lanza_cohetes.png";
 import torreImg from "./assets/torre.png";
 
-function App() {
-
   const INITIAL_STATE = {
-damageDealt: 0
+    damageDealt: 0,
+    waveGoal: 100,
+    caramels: 20,
+    damagePerShot: 1,
+    autoShotsPerSecond: 1,
+    autoshotsPerSecond: 1,
+    upgrades: [],
   }
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
 
-export default App
+  export default function App() {
+
+    function shotReducer(state, action) {
+
+      let outputState = state;
+
+      if (action.type == 'CLICK_SHOOT') {
+        outputState = { ...state, cookies: state.cookies + state.clickMultiplier }
+      }
+      else if (action.type == 'BUY_MULTIPLIER' && state.cookies >= state.multiplierPrice) {
+        outputState =
+        {
+          ...state,
+          clickMultiplier: state.clickMultiplier + 1,
+          cookies: state.cookies - state.multiplierPrice,
+          multiplierPrice: Math.round(state.multiplierPrice * state.multiplierPriceIncrement)
+        }
+      }
+      else if (action.type == 'BUY_CURSOR' && state.cookies >= state.cursorPrice) {
+        outputState =
+        {
+          ...state,
+          cursorCount: state.cursorCount + 1,
+          cookies: state.cookies - state.cursorPrice,
+          cursorPrice: Math.round(state.cursorPrice * state.cursorPriceIncrement)
+        }
+      }
+      else if (action.type == 'BUY_GRANDMA' && state.cookies >= state.grandmaPrice) {
+        outputState =
+        {
+          ...state,
+          grandmaCount: state.grandmaCount + 1,
+          cookies: state.cookies - state.grandmaPrice,
+          grandmaPrice: Math.round(state.grandmaPrice * state.grandmaPriceIncrement)
+        }
+      }
+      else if (action.type == 'GENERATE_COOKIES') {
+        outputState =
+        {
+          ...state,
+          cookies: state.cookies + state.cursorCount * 0.1 + state.grandmaCount * 1
+        }
+      }
+
+      return outputState;
+
+    }
+
+    const [state, dispatch] = useReducer(cookieReducer, INITIAL_STATE)
+
+    useEffect(() => {
+      let timer = setInterval(() => {
+        dispatch({ type: 'GENERATE_COOKIES' })
+      }, 1000);
+
+      return () => clearInterval(timer)
+    }, []);
+
+    return (
+      <>
+        <div className='container'>
+          <div className='row justify-content-center'>
+            <h1 className='col-12'>{Math.round(state.cookies)} 🍪</h1>
+            <button className='col-5' onClick={() => dispatch({ type: 'CLICK_COOKIE' })}>
+              <img className='img-fluid' src={cookieImg} />
+            </button>
+          </div>
+          <div className='row justify-content-center'>
+            <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_CURSOR' })}>
+              <img className='img-fluid' src={cursorImg} />
+              x{state.cursorCount}
+            </button>
+            <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_MULTIPLIER' })}>
+              <img className='img-fluid' src={multiplierImg} />
+              x{state.clickMultiplier}
+            </button>
+            <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_GRANDMA' })}>
+              <img className='img-fluid' src={grandmaImg} />
+              x{state.grandmaCount}
+            </button>
+          </div>
+          <div className='row justify-content-center'>
+            <p className='col-md-2 col-12'>{state.cursorPrice} 🍪</p>
+            <p className='col-md-2 col-12'>{state.multiplierPrice} 🍪</p>
+            <p className='col-md-2 col-12'>{state.grandmaPrice} 🍪</p>
+          </div>
+        </div>
+
+      </>
+    )
+  }
