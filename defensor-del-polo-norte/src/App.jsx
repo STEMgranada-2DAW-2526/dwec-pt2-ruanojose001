@@ -77,9 +77,26 @@ export default function App() {
         </h1>
 
         <button onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
+          <img className='imagen' src={canion_turronImg} />
         </button>
       </div>
 
+      <div className='imagen'>
+        <h3>
+        <button onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
+          <img src={torreImg} />
+        </button>
+
+        <button onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
+          <img src={reno_lanza_cohetesrImg} />
+        </button>
+
+        <button onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
+          <img src={arbol_laserImg} />
+        </button>
+        </h3>
+
+      </div>
     </>
   )
 }
