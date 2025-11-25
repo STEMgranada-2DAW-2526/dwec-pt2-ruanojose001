@@ -37,12 +37,12 @@ export default function App() {
         damageDealt: state.damageDealt + state.damagePerShot * state.autoShotsPerSecond
       }
     }
-    else if (action.type == 'BUY_DAMAGE_UPGRADE') {
+    else if (action.type == 'BUY_DAMAGE_UPGRADE' && state.caramels >= caramels) {
       outputState =
       {
         ...state,
         caramels: state.caramels - 15,
-        autoshotPerSecond: state.autoShotsPerSecond + 1
+        autoshotPerSecond: state.autoShotsPerSecond + 2
       }
     }
     else if (action.type == 'NEXT WAVE') {
@@ -83,15 +83,15 @@ export default function App() {
 
       <div>
         <h3>
-          <button onClick={() => dispatch({ type: 'BUY_DAMAGE_UPGRADE' })}>
+          <button onClick={() => dispatch({ type: 'BUY_DAMAGE_UPGRADE'})}>
             <img className='imagen' src={torreImg} />
           </button>
 
-          <button onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
+          <button onClick={() => dispatch({ type: 'BUY_DAMAGE_UPGRADE'})}>
             <img className='imagen' src={reno_lanza_cohetesrImg} />
           </button>
 
-          <button onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
+          <button onClick={() => dispatch({ type: 'BUY_DAMAGE_UPGRADE'})}>
             <img className='imagen' src={arbol_laserImg} />
           </button>
         </h3>
